@@ -1,0 +1,3 @@
+import type {APIRoute} from 'astro';import {z} from 'zod';import {sameOrigin,json} from '../../../lib/validation';
+export const POST:APIRoute=async({request,locals})=>{if(!sameOrigin(request))return json({error:'Origem inválida.'},403);if(!locals.user)return json({error:'Acesso negado.'},401);try{const body=await request.json();const parsed=z.object({id:z.uuid(),status:z.enum(['novo','em_atendimento','concluido'])}).safeParse(body);if(!parsed.success)return json({error:'Dados inválidos.'},400);const {error}=await locals.supabase!.from('contacts').update({status:parsed.data.status}).eq('id',parsed.data.id).select('id').single();return error?json({error:'Não foi possível atualizar.'},400):json({success:true});}catch{return json({error:'Dados inválidos.'},400);}};
+

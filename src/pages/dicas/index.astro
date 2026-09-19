@@ -1,0 +1,6 @@
+---
+import Base from '../../layouts/Base.astro';import Heading from '../../components/ui/PageHeading.astro';import PostCard from '../../components/PostCard.astro';import {getPosts} from '../../services/catalog';
+const posts=await getPosts();const categories=[...new Map(posts.filter(p=>p.post_categories).map(p=>[p.post_categories!.slug,p.post_categories!])).values()];const current=Astro.url.searchParams.get('categoria');const filtered=current?posts.filter(p=>p.post_categories?.slug===current):posts;
+---
+<Base title="Dicas e cuidados" noindex={Boolean(current)}><Heading eyebrow="INSPIRAÇÃO E CONHECIMENTO" title="Uma piscina melhor. Todos os dias." description="Ideias e orientações para cuidar da sua piscina e aproveitar cada momento."/><section class="section"><div class="container"><nav class="post-tabs" aria-label="Categorias de dicas"><a href="/dicas" aria-current={!current?'page':undefined}>Todas as dicas</a>{categories.map(c=><a href={'/dicas?categoria='+c.slug} aria-current={current===c.slug?'page':undefined}>{c.nome}</a>)}</nav>{filtered.length?<div class="posts-grid">{filtered.map(post=><PostCard post={post}/>)}</div>:<div class="empty-state"><h2>Novas dicas estão a caminho.</h2><p>Enquanto isso, nossa equipe pode ajudar com suas dúvidas.</p><a href="/contato" class="button">Fale conosco</a></div>}</div></section></Base>
+

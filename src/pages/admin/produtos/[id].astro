@@ -1,0 +1,8 @@
+---
+import Admin from '../../../layouts/Admin.astro';import ProductEditor from '../../../components/admin/ProductEditor';
+const id=Astro.params.id!;const db=Astro.locals.supabase!;
+const [{data:categories,error:ce},{data:brands,error:be}]=await Promise.all([db.from('categories').select('*').order('nome'),db.from('brands').select('*').order('nome')]);
+let product=null;let error=ce||be;if(id!=='novo'){const result=await db.from('products').select('*').eq('id',id).maybeSingle();product=result.data;error=result.error||error;if(!product&&!error)return Astro.redirect('/admin/produtos');}
+---
+<Admin title={product?'Editar produto':'Novo produto'}><div class="admin-card">{error?<p class="form-feedback error">Não foi possível carregar o editor.</p>:<ProductEditor product={product} categories={categories||[]} brands={brands||[]} client:load/>}</div></Admin>
+

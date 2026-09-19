@@ -1,0 +1,14 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "tee-aqua-solutions",
+  "main": "@astrojs/cloudflare/entrypoints/server",
+  "compatibility_date": "2026-09-19",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": { "binding": "ASSETS", "directory": "./dist/client" },
+  "observability": { "enabled": true }
+  // NOTE: "images" (IMAGES binding) and "kv_namespaces" (SESSION binding, used by
+  // Astro's Cloudflare session support) are injected automatically by @astrojs/cloudflare
+  // at build time. Before a real production deploy, run `wrangler kv namespace create SESSION`
+  // and add its real "id" under "kv_namespaces" here, or the auto-injected binding will have
+  // no backing namespace once deployed outside of `wrangler dev`.
+}

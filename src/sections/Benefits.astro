@@ -1,0 +1,6 @@
+---
+import Icon from '../components/ui/Icon.astro';
+const benefits=[{icon:'ShieldCheck',title:'Produtos selecionados',text:'Qualidade em cada escolha'},{icon:'MessageCircle',title:'Atendimento especializado',text:'Conte com quem entende'},{icon:'Waves',title:'Soluções completas',text:'Tudo para sua piscina'},{icon:'Truck',title:'Entrega e distribuição',text:'Cuidado que chega até você'}] as const;
+---
+<section class="benefits" aria-label="Nossos diferenciais"><div class="container benefits-grid">{benefits.map(b=><div class="benefit"><Icon name={b.icon} size={29}/><div><h2>{b.title}</h2><p>{b.text}</p></div></div>)}</div></section>
+

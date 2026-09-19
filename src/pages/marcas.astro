@@ -1,0 +1,6 @@
+---
+import Base from '../layouts/Base.astro';import Heading from '../components/ui/PageHeading.astro';import {getBrands} from '../services/catalog';import Icon from '../components/ui/Icon.astro';
+const brands=await getBrands();
+---
+<Base title="Marcas e soluções"><Heading eyebrow="QUALIDADE EM CADA ESCOLHA" title="Marcas e soluções." description="Produtos e equipamentos para completar o cuidado com sua piscina."/><section class="section"><div class="container">{brands.length?<div class="brands-page-grid">{brands.map(b=><a class="brand-tile" href={'/produtos?marca='+b.id}>{b.logo&&<img src={b.logo} alt={b.nome} width="180" height="80" loading="lazy"/>}<h2>{b.nome}</h2><span class="text-link">Ver produtos <Icon name="ArrowUpRight" size={16}/></span></a>)}</div>:<div class="editorial"><p class="eyebrow">CATÁLOGO EM PREPARAÇÃO</p><h2>O produto certo começa com uma boa conversa.</h2><p>A relação de marcas comercializadas será publicada após a confirmação do nosso catálogo. Enquanto isso, conte para nossa equipe o que você procura.</p><a class="button button-dark" href="/contato?assunto=Produtos">Consultar nossa equipe <Icon name="ArrowUpRight" size={18}/></a></div>}</div></section></Base>
+

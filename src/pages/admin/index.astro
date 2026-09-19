@@ -1,0 +1,7 @@
+---
+import Admin from '../../layouts/Admin.astro';
+const db=Astro.locals.supabase!;const results=await Promise.all(['products','categories','brands','contacts'].map(table=>db.from(table).select('*',{count:'exact',head:true})));
+const failed=results.some(r=>r.error);const labels=['Produtos','Categorias','Marcas','Contatos'];const urls=['produtos','categorias','marcas','contatos'];
+---
+<Admin title="Visão geral"><a slot="action" class="button button-dark" href="/admin/produtos/novo">Novo produto +</a>{failed&&<p class="form-feedback error">Não foi possível consultar os dados. Confira a conexão e as migrations do banco.</p>}<div class="admin-stats">{results.map((r,i)=><a class="admin-card admin-stat" href={'/admin/'+urls[i]}><span>{labels[i]}</span><strong>{r.error?'—':r.count||0}</strong></a>)}</div><div class="admin-card"><h2 style="font-size:25px">Seu catálogo, sempre atualizado.</h2><p>Cadastre categorias e marcas, adicione os produtos e selecione os destaques da página inicial. Ative apenas produtos com informações comerciais revisadas.</p><a class="text-link" href="/admin/produtos">Gerenciar produtos →</a></div></Admin>
+

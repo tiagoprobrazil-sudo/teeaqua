@@ -1,0 +1,25 @@
+---
+import Logo from './ui/Logo.astro'; import Icon from './ui/Icon.astro'; import {navigation,site,whatsappUrl} from '../config/site';
+const {transparent=false}=Astro.props;
+---
+<header class:list={['site-header',{'over-hero':transparent}]} id="site-header">
+<div class="container nav-wrap">
+<a href="/" class="logo-link" aria-label="Tee Aqua Solutions — início"><span class="logo-dark"><Logo /></span><span class="logo-light"><Logo white /></span></a>
+<nav class="desktop-nav" aria-label="Navegação principal">{navigation.map(([name,url])=><a href={url} aria-current={Astro.url.pathname===url?'page':undefined}>{name}</a>)}</nav>
+<div class="nav-actions"><a class="button button-small nav-quote" href="/contato?assunto=Orçamento">Solicitar orçamento <Icon name="ArrowUpRight" size={17}/></a>{site.whatsapp&&<a class="nav-whatsapp" href={whatsappUrl()} aria-label="Conversar no WhatsApp"><Icon name="MessageCircle"/></a>}<button id="menu-toggle" class="icon-button mobile-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-nav"><Icon name="Menu"/></button></div>
+</div>
+<nav id="mobile-nav" class="mobile-nav" aria-label="Navegação móvel" hidden>{navigation.map(([name,url])=><a href={url}>{name}<Icon name="ArrowUpRight" size={18}/></a>)}<a class="button" href="/contato?assunto=Orçamento">Solicitar orçamento</a></nav>
+</header>
+<script>
+const header=document.getElementById('site-header')!;
+const toggle=document.getElementById('menu-toggle')!;
+const nav=document.getElementById('mobile-nav')!;
+const scroll=()=>header.classList.toggle('scrolled',window.scrollY>32);
+scroll(); window.addEventListener('scroll',scroll,{passive:true});
+const close=()=>{nav.hidden=true;toggle.setAttribute('aria-expanded','false');toggle.setAttribute('aria-label','Abrir menu');header.classList.remove('menu-open');};
+toggle.addEventListener('click',()=>{const open=toggle.getAttribute('aria-expanded')!=='true';nav.hidden=!open;toggle.setAttribute('aria-expanded',String(open));toggle.setAttribute('aria-label',open?'Fechar menu':'Abrir menu');header.classList.toggle('menu-open',open);});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){close();toggle.focus();}});
+nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',close));
+window.matchMedia('(min-width: 1101px)').addEventListener('change',e=>{if(e.matches)close();});
+</script>
+

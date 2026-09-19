@@ -1,0 +1,13 @@
+node_modules/
+dist/
+.astro/
+.wrangler/
+# Raw reference images/videos the client sends in chat (large, already
+# processed into public/images and public/video — not needed in the repo).
+.images/
+.env
+.env.*
+!.env.example
+.dev.vars
+*.log
+tmp/

@@ -1,0 +1,8 @@
+---
+import { ArrowUpRight, ArrowRight, ArrowLeft, Waves, Droplets, ShieldCheck, Truck, Sparkles, Menu, X, Search, ChevronDown, Check, Phone, Mail, MapPin, MessageCircle, Sun, SlidersHorizontal, CircleHelp, Settings, Zap, Thermometer, Package, Lightbulb, Wrench } from 'lucide-react';
+const icons={ArrowUpRight,ArrowRight,ArrowLeft,Waves,Droplets,ShieldCheck,Truck,Sparkles,Menu,X,Search,ChevronDown,Check,Phone,Mail,MapPin,MessageCircle,Sun,SlidersHorizontal,CircleHelp,Settings,Zap,Thermometer,Package,Lightbulb,Wrench};
+interface Props { name: keyof typeof icons; size?: number; class?: string }
+const {name,size=22,class:className}=Astro.props; const Component=icons[name];
+---
+<Component size={size} strokeWidth={1.6} className={className} aria-hidden="true" />
+

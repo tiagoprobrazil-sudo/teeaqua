@@ -1,0 +1,6 @@
+---
+import Icon from './ui/Icon.astro'; import type {Post} from '../types/catalog';
+interface Props {post:Post} const {post}=Astro.props;
+---
+<article class="post-card"><a href={'/dicas/'+post.slug}><div class="post-image"><img src={post.imagem} alt="" width="800" height="570" loading="lazy" decoding="async"/></div><div class="post-meta"><span>{post.post_categories?.nome || 'Dicas'}</span><span>LEITURA RÁPIDA</span></div><h3>{post.titulo}</h3><p>{post.resumo}</p><span class="text-link">Ler artigo <Icon name="ArrowUpRight" size={18}/></span></a></article>
+

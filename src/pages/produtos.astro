@@ -1,0 +1,25 @@
+---
+import Base from '../layouts/Base.astro'; import Heading from '../components/ui/PageHeading.astro'; import ProductCard from '../components/catalog/ProductCard.astro'; import Icon from '../components/ui/Icon.astro';
+import {getCategories,getProducts,getBrands} from '../services/catalog';
+import type {Category,Brand} from '../types/catalog';
+let categories:Category[]=[],brands:Brand[]=[]; let result:Awaited<ReturnType<typeof getProducts>>={products:[],total:0,page:1,limit:9,demo:false}; let error='';
+try{[categories,brands,result]=await Promise.all([getCategories(),getBrands(),getProducts(Astro.url.searchParams)]);}catch(e){error=e instanceof Error?e.message:'Catálogo indisponível.';Astro.response.status=503;}
+const params=Astro.url.searchParams; const pages=Math.ceil(result.total/result.limit);
+function pageUrl(page:number){const q=new URLSearchParams(params);q.set('pagina',String(page));return '/produtos?'+q.toString();}
+---
+<Base title="Produtos" noindex={Boolean(params.toString())}><Heading eyebrow="NOSSO CATÁLOGO" title="Tudo para cuidar. Tudo para aproveitar." description="Encontre produtos e equipamentos para cada necessidade da sua piscina."/><section class="section catalog-section"><div class="container">
+<form class="catalog-filters" action="/produtos" method="get" role="search"><label class="search-field"><span class="sr-only">Buscar produtos</span><Icon name="Search" size={20}/><input type="search" name="busca" placeholder="O que sua piscina precisa?" value={params.get('busca')} maxlength="100"/></label><label><span>Categoria</span><select name="categoria"><option value="">Todas as categorias</option>{categories.map(c=><option value={c.slug} selected={params.get('categoria')===c.slug}>{c.nome}</option>)}</select></label><label><span>Marca</span><select name="marca"><option value="">Todas as marcas</option>{brands.map(b=><option value={b.id} selected={params.get('marca')===b.id}>{b.nome}</option>)}</select></label><label><span>Ordenar por</span><select name="ordem"><option value="relevancia" selected={!params.get('ordem')||params.get('ordem')==='relevancia'}>Relevância</option><option value="nome" selected={params.get('ordem')==='nome'}>Nome: A–Z</option><option value="recentes" selected={params.get('ordem')==='recentes'}>Mais recentes</option></select></label><button class="button button-dark" type="submit">Filtrar <Icon name="SlidersHorizontal" size={18}/></button></form>
+<div class="catalog-summary"><p>{result.total} {result.total===1?'produto encontrado':'produtos encontrados'}</p>{params.toString()&&<a class="text-link" href="/produtos">Limpar filtros <Icon name="X" size={15}/></a>}</div>
+{result.demo&&<p class="notice">Catálogo de demonstração. Itens e ilustrações exemplificam a apresentação; fabricantes, especificações e disponibilidade serão definidos no catálogo comercial.</p>}
+{error?<div class="empty-state"><Icon name="CircleHelp" size={36}/><h2>Vamos tentar de novo?</h2><p>{error}</p><a class="button" href="/produtos">Recarregar catálogo</a></div>:result.products.length?<div class="product-grid">{result.products.map(product=><ProductCard product={product}/>)}</div>:<div class="empty-state"><Icon name="Search" size={38}/><h2>Nenhum produto por aqui.</h2><p>Experimente outra busca ou fale com nossa equipe.</p><a class="button button-dark" href={params.toString()?'/produtos':'/contato'}>{params.toString()?'Limpar filtros':'Fale conosco'}</a></div>}
+{pages>1&&(
+  <nav class="pagination" aria-label="Páginas do catálogo">
+    {result.page>1&&(<a href={pageUrl(result.page-1)} aria-label="Página anterior"><Icon name="ArrowLeft"/></a>)}
+    {Array.from({length:pages},(_,i)=>i+1).filter(p=>p===1||p===pages||Math.abs(p-result.page)<=2).map(p=>(
+      <a href={pageUrl(p)} aria-current={p===result.page?'page':undefined}>{p}</a>
+    ))}
+    {pages>result.page&&(<a href={pageUrl(result.page+1)} aria-label="Próxima página"><Icon name="ArrowRight"/></a>)}
+  </nav>
+)}
+</div></section></Base>
+
