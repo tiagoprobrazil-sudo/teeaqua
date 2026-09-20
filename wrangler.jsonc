@@ -5,7 +5,11 @@
   "compatibility_date": "2026-09-19",
   "compatibility_flags": ["nodejs_compat"],
   "assets": { "binding": "ASSETS", "directory": "./dist/client" },
-  "observability": { "enabled": true }
+  "observability": { "enabled": true },
+  // Mirrors the "DEMO_MODE" runtime variable set in the Cloudflare dashboard
+  // (Worker "teeaqua" → Settings → Variables and secrets). Remove this once
+  // real Supabase credentials are configured and the catalog is live.
+  "vars": { "DEMO_MODE": "true" }
   // NOTE: "images" (IMAGES binding) and "kv_namespaces" (SESSION binding, used by
   // Astro's Cloudflare session support) are injected automatically by @astrojs/cloudflare
   // at build time. Before a real production deploy, run `wrangler kv namespace create SESSION`
