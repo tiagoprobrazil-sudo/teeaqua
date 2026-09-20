@@ -9,10 +9,8 @@
   // Mirrors the "DEMO_MODE" runtime variable set in the Cloudflare dashboard
   // (Worker "teeaqua" → Settings → Variables and secrets). Remove this once
   // real Supabase credentials are configured and the catalog is live.
-  "vars": { "DEMO_MODE": "true" }
-  // NOTE: "images" (IMAGES binding) and "kv_namespaces" (SESSION binding, used by
-  // Astro's Cloudflare session support) are injected automatically by @astrojs/cloudflare
-  // at build time. Before a real production deploy, run `wrangler kv namespace create SESSION`
-  // and add its real "id" under "kv_namespaces" here, or the auto-injected binding will have
-  // no backing namespace once deployed outside of `wrangler dev`.
+  "vars": { "DEMO_MODE": "true" },
+  "kv_namespaces": [{ "binding": "SESSION", "id": "949495b7acaa49d39886d3b217690b6e" }]
+  // NOTE: "images" (IMAGES binding) is still injected automatically by
+  // @astrojs/cloudflare at build time — no local config needed for it.
 }
