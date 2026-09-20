@@ -4,7 +4,7 @@ const {transparent=false}=Astro.props;
 ---
 <header class:list={['site-header',{'over-hero':transparent}]} id="site-header">
 <div class="container nav-wrap">
-<a href="/" class="logo-link" aria-label="Tee Aqua Solutions — início"><span class="logo-dark"><Logo /></span><span class="logo-light"><Logo white /></span></a>
+<a href="/" class="logo-link" aria-label="T&E Aqua Solutions — início"><span class="logo-dark"><Logo /></span><span class="logo-light"><Logo white /></span></a>
 <nav class="desktop-nav" aria-label="Navegação principal">{navigation.map(([name,url])=><a href={url} aria-current={Astro.url.pathname===url?'page':undefined}>{name}</a>)}</nav>
 <div class="nav-actions"><a class="button button-small nav-quote" href="/contato?assunto=Orçamento">Solicitar orçamento <Icon name="ArrowUpRight" size={17}/></a>{site.whatsapp&&<a class="nav-whatsapp" href={whatsappUrl()} aria-label="Conversar no WhatsApp"><Icon name="MessageCircle"/></a>}<button id="menu-toggle" class="icon-button mobile-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-nav"><Icon name="Menu"/></button></div>
 </div>

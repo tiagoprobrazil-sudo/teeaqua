@@ -3,9 +3,9 @@ import { ArrowUpRight, ArrowLeft, ArrowRight, Pause, Play, Waves } from 'lucide-
 import {media,photo} from '../../config/media';
 const slides=[
 {video:'/video/hero-baby-diving.mp4',poster:'/video/hero-baby-diving-poster.jpg',label:'CUIDADO EM CADA GOTA',title:<>Tudo para uma<br/>piscina <em>perfeita.</em></>,text:'Produtos, equipamentos e soluções para manter sua piscina sempre limpa, segura e cristalina.',cta:'Conheça nossos produtos',href:'/produtos'},
-{image:media.leisure,alt:'Piscina ao ar livre em um dia de verão',label:'MAIS LAZER. MAIS VIDA.',title:<>Mais tempo para<br/><em>aproveitar.</em></>,text:'A Tee Aqua Solutions ajuda você a cuidar da piscina para que sua preocupação seja apenas aproveitar.',cta:'Encontre a solução ideal',href:'/solucoes'},
+{image:media.leisure,alt:'Piscina ao ar livre em um dia de verão',label:'MAIS LAZER. MAIS VIDA.',title:<>Mais tempo para<br/><em>aproveitar.</em></>,text:'A T&E Aqua Solutions ajuda você a cuidar da piscina para que sua preocupação seja apenas aproveitar.',cta:'Encontre a solução ideal',href:'/solucoes'},
 {video:'/video/hero-swimmer.mp4',poster:'/video/hero-swimmer-poster.jpg',label:'CLAREZA QUE FAZ A DIFERENÇA',title:<>Água limpa começa<br/>com os produtos <em>certos.</em></>,text:'Produtos selecionados para tratamento, manutenção e cuidado completo da sua piscina.',cta:'Ver produtos',href:'/produtos?categoria=tratamento-da-agua'},
-{image:media.pool,alt:'Piscina com sistema de circulação de água',label:'DO PROJETO AO PRÓXIMO MERGULHO',title:<>Soluções para quem<br/>entende de <em>piscina.</em></>,text:'Equipamentos, acessórios e materiais para residências, profissionais e empresas do setor.',cta:'Conheça a Tee Aqua',href:'/empresa'},
+{image:media.pool,alt:'Piscina com sistema de circulação de água',label:'DO PROJETO AO PRÓXIMO MERGULHO',title:<>Soluções para quem<br/>entende de <em>piscina.</em></>,text:'Equipamentos, acessórios e materiais para residências, profissionais e empresas do setor.',cta:'Conheça a T&E Aqua',href:'/empresa'},
 ];
 export default function Hero(){
 const [active,setActive]=useState(0),[paused,setPaused]=useState(false),[hover,setHover]=useState(false),[focused,setFocused]=useState(false),[reduced,setReduced]=useState(true),[visible,setVisible]=useState(true);
