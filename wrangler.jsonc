@@ -6,11 +6,21 @@
   "compatibility_flags": ["nodejs_compat"],
   "assets": { "binding": "ASSETS", "directory": "./dist/client" },
   "observability": { "enabled": true },
-  // Mirrors the "DEMO_MODE" runtime variable set in the Cloudflare dashboard
-  // (Worker "teeaqua" → Settings → Variables and secrets). Every deploy from
-  // Cloudflare Workers Builds re-applies this value, overriding any manual
-  // edit made in the dashboard — so this file is the real source of truth.
-  "vars": { "DEMO_MODE": "false" },
+  // Every deploy from Cloudflare Workers Builds re-applies exactly this
+  // "vars" block, wiping out any plain Variable added only through the
+  // dashboard (Settings → Variables and secrets) that isn't listed here —
+  // this file is the real source of truth for non-secret runtime config.
+  // These four are safe to commit: SUPABASE_ANON_KEY and TURNSTILE_SITE_KEY
+  // are public-by-design (protected by RLS / embedded in page HTML anyway).
+  // Sensitive values (SUPABASE_SERVICE_ROLE_KEY, TURNSTILE_SECRET_KEY) stay
+  // dashboard-only Secrets and are NOT declared here.
+  "vars": {
+    "DEMO_MODE": "false",
+    "SUPABASE_URL": "https://lggcuzayauvsmqnsesss.supabase.co",
+    "SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxnZ2N1emF5YXV2c21xbnNlc3NzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk5MjQwMTgsImV4cCI6MjEwNTUwMDAxOH0.tCn-CtID3JbsqbUxPpMgaAaxBnyIxXCTSvFDqNuHaAs",
+    "TURNSTILE_SITE_KEY": "0x4AAAAAAE-FMdFwITqistc9",
+    "TURNSTILE_HOSTNAMES": "teeaquasolutions.com.br,teeaqua.tiagoprobrazil.workers.dev"
+  },
   "kv_namespaces": [{ "binding": "SESSION", "id": "949495b7acaa49d39886d3b217690b6e" }]
   // NOTE: "images" (IMAGES binding) is still injected automatically by
   // @astrojs/cloudflare at build time — no local config needed for it.
