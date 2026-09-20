@@ -5,6 +5,8 @@ dist/
 # Raw reference images/videos the client sends in chat (large, already
 # processed into public/images and public/video — not needed in the repo).
 .images/
+# Supabase CLI local state (project ref cache, pooler URL) — machine-specific.
+supabase/.temp/
 .env
 .env.*
 !.env.example
