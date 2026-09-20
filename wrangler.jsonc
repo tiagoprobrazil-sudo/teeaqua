@@ -7,9 +7,10 @@
   "assets": { "binding": "ASSETS", "directory": "./dist/client" },
   "observability": { "enabled": true },
   // Mirrors the "DEMO_MODE" runtime variable set in the Cloudflare dashboard
-  // (Worker "teeaqua" → Settings → Variables and secrets). Remove this once
-  // real Supabase credentials are configured and the catalog is live.
-  "vars": { "DEMO_MODE": "true" },
+  // (Worker "teeaqua" → Settings → Variables and secrets). Every deploy from
+  // Cloudflare Workers Builds re-applies this value, overriding any manual
+  // edit made in the dashboard — so this file is the real source of truth.
+  "vars": { "DEMO_MODE": "false" },
   "kv_namespaces": [{ "binding": "SESSION", "id": "949495b7acaa49d39886d3b217690b6e" }]
   // NOTE: "images" (IMAGES binding) is still injected automatically by
   // @astrojs/cloudflare at build time — no local config needed for it.
